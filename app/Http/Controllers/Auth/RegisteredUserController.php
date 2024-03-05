@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Establishment;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -40,12 +41,105 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+
         ]);
+
+        $user->assignRole('spectator');
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        switch ($user->roles->name) 
+        {
+            case 'administrator':
+                return redirect()->route('administrator.dashboard.index');
+                break;
+            case 'spectator':
+                return redirect()->route('spectator.index');
+                break;
+
+        }
     }
+
+    //////////////////////ma deuxieme methode pour l'organisateur:
+
+    // public function storeOrganisator(Request $request): RedirectResponse
+    // {
+    //     $request->validate([
+    //         'name' => ['required', 'string', 'max:255'],
+    //         'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+    //         'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    //         'establishment_name' => ['required', 'string', 'max:255'],
+    //     ]);
+
+    //     $establishment = Establishment::create([
+    //         'name' => $request->establishment_name,
+    //     ]);
+
+    //     $user = User::create([
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'password' => Hash::make($request->password),
+    //         'establishment_id' => $establishment->id,
+    //         'status' => 'pending',
+    //     ]);
+
+    //     $user->assignRole('organisator');
+
+    //     event(new Registered($user));
+
+    //     Auth::login($user);
+
+    //     return redirect(RouteServiceProvider::HOME);
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ///////////////////////////logique differente:
+
+    // public function storeTwo(Request $request): RedirectResponse
+    // {
+    //     $request->validate([
+    //         'name' => ['required', 'string', 'max:255'],
+    //         'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+    //         'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    //         'user_type' => ['required', 'string', 'in:spectator,organizer'],
+    //         'establishment_name' => ['required_if:user_type,organizer', 'string', 'max:255'],
+    //     ]);
+
+    //     $user = User::create([
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'password' => Hash::make($request->password),
+    //     ]);
+
+    //     // Assigner le rôle en fonction du type d'utilisateur
+    //     $roleName = ($request->user_type === 'organizer') ? 'organizer' : 'spectator';
+    //     $user->assignRole($roleName);
+
+    //     // Ajouter des attributs spécifiques au type d'utilisateur
+    //     if ($request->user_type === 'organizer') {
+    //         $establishment = Establishment::create(['name' => $request->establishment_name]);
+    //         $user->update(['establishment_id' => $establishment->id]);
+    //     }
+
+    //     event(new Registered($user));
+
+    //     Auth::login($user);
+
+    //     return redirect(RouteServiceProvider::HOME);
+    // }
 }

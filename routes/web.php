@@ -28,4 +28,33 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+/////////////mes routes par role:
+
+Route::group(['prefix' => 'administrator', 'as' => 'administrator.', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => ['auth', 'administrator']], function () {
+    
+    Route::resource('dashboard','AdminDashControler');
+    Route::resource('events','EventController');
+    Route::resource('categories','CategoryController');
+    Route::resource('establishments','EstablishmentController');  
+
+});
+
+Route::group(['prefix' => 'organisator', 'as' => 'organisator.', 'namespace' => 'App\Http\Controllers\Organisator', 'middleware' => ['auth', 'organisator']], function () {
+    
+    
+   
+    
+
+});
+
+Route::group(['prefix' => 'spectator', 'as' => 'spectator.', 'namespace' => 'App\Http\Controllers\Spectator', 'middleware' => ['auth', 'spectator']], function () {
+    
+    
+   
+    
+
+});
+
+
+
 require __DIR__.'/auth.php';

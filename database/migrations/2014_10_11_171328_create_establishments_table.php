@@ -11,19 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('establishments', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->enum('status', ['pending', 'accepted', 'banned'])->default('accepted');
+            $table->string('name')->unique();
+            $table->string('confirmation_code')->unique();
             $table->softDeletes();
-            $table->rememberToken();
             $table->timestamps();
-
-            
-        }); 
+        });
     }
 
     /**
@@ -31,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('establishments');
     }
 };
