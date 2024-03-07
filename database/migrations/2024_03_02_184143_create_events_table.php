@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('date');
             $table->string('capacity');
             $table->string('available_seats');
-            $table->enum('event_status', ['draft', 'published', 'closed'])->default('published');
+            $table->enum('event_status', ['pending', 'accepted', 'refused'])->default('pending');
             $table->enum('reservation_type', ['automatique', 'manuel'])->default('automatique');
             $table->string('price');
             $table->softDeletes();

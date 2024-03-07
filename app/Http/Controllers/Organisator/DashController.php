@@ -1,20 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Organisator;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
 
-class AdminDashController extends Controller
+class DashController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        
-        return view('admin.dashboard');
+       return view('organisator.dashboard');
     }
 
     /**
@@ -38,37 +36,30 @@ class AdminDashController extends Controller
      */
     public function show(string $id)
     {
-        
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(string $id)
     {
-       return view('');
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, string $id)
     {
-        $request->validate(['user_status' => ['required', 'in:accepted,banned']]);
-        $user->update(['status'=>$request->input('user_status')]);
-        $message = ($user->status === 'accepted') ? 'User status Accepted.' : 'User status Banned.';
-
-        return redirect()->route('administrator.dashboard.index')->with('success', $message);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(string $id)
     {
-        $user->delete();
-        return view('admin.dashboard');
+        //
     }
-
-    
 }

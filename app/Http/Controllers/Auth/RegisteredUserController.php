@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Establishment;
+use App\Models\Role;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -33,34 +34,50 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+
+
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
 
+
         ]);
 
-        $user->assignRole('spectator');
-
+        $role = Role::where('name', 'spectator')->first();
+        $user->roles()->attach($role);
+           
         event(new Registered($user));
 
         Auth::login($user);
 
-        switch ($user->roles->name) 
-        {
-            case 'administrator':
-                return redirect()->route('administrator.dashboard.index');
-                break;
-            case 'spectator':
-                return redirect()->route('spectator.index');
-                break;
-
+        if ($user->hasRole('administrator')) {
+            return redirect()->route('administrator.dashboard.index');
+        } elseif ($user->hasRole('spectator')) {
+            return redirect()->route('spectator.home.index');
         }
+
+        return redirect()->route('dashboard');
     }
+
+
+
+    // $roles = $user->roles(); // Utilisez des parenthèses pour appeler la relation
+
+    // if (!$roles->get()->isEmpty() && $roles->first() !== null) {
+    //     switch ($roles->first()->name) {
+    //         case 'administrator':
+    //             return redirect()->route('administrator.dashboard.index');
+    //             break;
+    //         case 'spectator':
+    //             return redirect()->route('spectator.home.index');
+    //             break;
+    //         // Gérer d'autres cas si nécessaire
+    //     }
 
     //////////////////////ma deuxieme methode pour l'organisateur:
 
@@ -108,7 +125,7 @@ class RegisteredUserController extends Controller
 
 
 
-  ///////////////////////////logique differente:
+    ///////////////////////////logique differente:
 
     // public function storeTwo(Request $request): RedirectResponse
     // {

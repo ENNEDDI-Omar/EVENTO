@@ -31,7 +31,6 @@ class EventStoreRequest extends FormRequest
             'date' => ['required', 'date_format:Y-m-d'],
             'capacity' => ['required', 'integer', 'min:0'],
             'available_seats' => ['required', 'integer', 'min:0'],
-            'event_status' => ['required', 'in:draft,published,closed'],
             'reservation_type' => ['required', 'in:automatique,manuel'],
             'price' => ['required', 'integer', 'min:0'],
         ];

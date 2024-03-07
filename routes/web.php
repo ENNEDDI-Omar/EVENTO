@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
 
 Route::group(['prefix' => 'administrator', 'as' => 'administrator.', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => ['auth', 'administrator']], function () {
     
-    Route::resource('dashboard','AdminDashControler');
+    Route::resource('dashboard','AdminDashController');
     Route::resource('events','EventController');
     Route::resource('categories','CategoryController');
     Route::resource('establishments','EstablishmentController');  
@@ -40,19 +40,13 @@ Route::group(['prefix' => 'administrator', 'as' => 'administrator.', 'namespace'
 });
 
 Route::group(['prefix' => 'organisator', 'as' => 'organisator.', 'namespace' => 'App\Http\Controllers\Organisator', 'middleware' => ['auth', 'organisator']], function () {
-    
-    
-   
-    
 
 });
 
-Route::group(['prefix' => 'spectator', 'as' => 'spectator.', 'namespace' => 'App\Http\Controllers\Spectator', 'middleware' => ['auth', 'spectator']], function () {
-    
-    
-   
-    
 
+
+Route::group(['prefix' => 'spectator', 'as' => 'spectator.', 'namespace' => 'App\Http\Controllers\Spectator', 'middleware' => ['auth', 'spectator']], function () {
+    Route::resource('home','HomeController');
 });
 
 

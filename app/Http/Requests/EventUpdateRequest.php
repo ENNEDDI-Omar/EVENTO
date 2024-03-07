@@ -31,7 +31,6 @@ class EventUpdateRequest extends FormRequest
             'date' => ['sometimes', 'date_format:Y-m-d'],
             'capacity' => ['sometimes', 'integer', 'min:0'],
             'available_seats' => ['sometimes', 'integer', 'min:0'],
-            'event_status' => ['sometimes', 'in:draft,published,closed'],
             'reservation_type' => ['sometimes', 'in:automatique,manuel'],
             'price' => ['sometimes', 'integer', 'min:0'],
         ];

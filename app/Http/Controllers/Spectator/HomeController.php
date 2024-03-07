@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Organisator;
+namespace App\Http\Controllers\Spectator;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class OrganisatorDashController extends Controller
+class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view('spectator.index');
     }
 
     /**

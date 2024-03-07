@@ -34,7 +34,7 @@ class User extends Authenticatable implements HasMedia
 
     ];
 
-//////Rétablissement des relations:
+    //////Rétablissement des relations:
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class);
@@ -51,13 +51,15 @@ class User extends Authenticatable implements HasMedia
     }
 
 
-/////////vérification du role:
+    /////////vérification du role:
     public function hasRole(string $roleName): bool
     {
-        return $this->roles->contains('name', $roleName);
+        return $this->roles->contains(function ($role) use ($roleName) {
+            return $role->name === $roleName;
+        });
     }
 
-////////////////assigner le role à l'utilisateur:
+    ////////////////assigner le role à l'utilisateur:
     public function assignRole(string $roleName): void
     {
         $role = Role::firstOrCreate(['name' => $roleName]);
