@@ -27,11 +27,11 @@ class EventFactory extends Factory
             'description' => $this->faker->paragraph,
             'location' => $this->faker->address,
             'date' => $this->faker->dateTimeBetween('now', '+5 days'),
-            'capacity' => $this->faker->randomNumber(5),
-            'available_seats' => $this->faker->randomNumber(3),
-            'event_status' => $this->faker->randomElement(['draft', 'published', 'closed']),
+            'capacity' => $this->faker->randomNumber(5, true),
+            'available_seats' => $this->faker->randomNumber(3, true),
+            'event_status' => $this->faker->randomElement(['accepted', 'pending', 'refused']),
             'reservation_type' => $this->faker->randomElement(['automatique', 'manuel']),
-            'price' => $this->faker->randomNumber(3),
+            'price' => $this->faker->randomNumber(3,true),
         ];
     }
 }

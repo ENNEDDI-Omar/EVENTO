@@ -17,7 +17,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        $user=Auth::user();
+        $user = Auth::user();
         $events = $user->events;
 
         return view('organisator.dashboard', compact('events'));
@@ -36,12 +36,16 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(EventStoreRequest $request, Event $event)
+    public function store(EventStoreRequest $request)
     {
-        $event->create($request->validated());
+        $data = $request->validated();
+
+        $event = Event::create($data);
+        $event->addMediaFromRequest('poster')->toMediaCollection('events');
 
         return redirect()->route('organisator.events.index')->with('success', 'Event created successfully');
     }
+
 
     /**
      * Display the specified resource.
@@ -65,6 +69,10 @@ class EventController extends Controller
     public function update(EventUpdateRequest $request, Event $event)
     {
         $event->update($request->validated());
+        if ($request->hasFile('poster')) {
+            $event->clearMediaCollection('events');
+            $event->addMediaFromRequest('poster')->toMediaCollection('events');
+        }
         return redirect()->route('organisator.events.index')->with('success', 'Event updated successfully');
     }
 

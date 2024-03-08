@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Organisator;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 
@@ -10,12 +11,12 @@ class ReservationController extends Controller
 {
     public function index()
     {
-      return view('organisator.reservations.index');
+      
     }
 
     public function show(Reservation $reservation)
     {
-       return view('organisator.reservations.show');
+       return view('organisator.reservations.show', compact('reservation'));
     }
 
     public function manageReservation(Request $request, Reservation $reservation)

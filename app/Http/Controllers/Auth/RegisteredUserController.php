@@ -58,7 +58,7 @@ class RegisteredUserController extends Controller
         if ($user->hasRole('administrator')) {
             return redirect()->route('administrator.dashboard.index');
         } elseif ($user->hasRole('spectator')) {
-            return redirect()->route('spectator.home.index');
+            return redirect()->route('home.index');
         }
 
         return redirect()->route('dashboard');

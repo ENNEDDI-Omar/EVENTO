@@ -18,7 +18,7 @@ class EstablishmentFactory extends Factory
     {
         return [
            'name' =>fake()->company(),
-           'confirmation_code' =>fake()->random_int(1000, 9999), 
+           'confirmation_code' =>fake()->randomNumber(4, true), 
         ];
     }
 }

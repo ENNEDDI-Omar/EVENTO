@@ -3,16 +3,23 @@
 namespace App\Http\Controllers\Spectator;
 
 use App\Http\Controllers\Controller;
+use App\Models\Reservation;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+
+
+class TicketController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    private function generateTicket(Reservation $reservation)
     {
-        return view('spectator.index');
+        $pdf = Pdf::loadView('tickets.ticket_template', compact('reservation'));
+
+        // Enregistrez le fichier PDF dans le dossier de stockage
+        $pdf->save(storage_path('app/public/tickets/' . $reservation->id . '.pdf'));
     }
 
     /**
@@ -20,7 +27,7 @@ class HomeController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -34,9 +41,11 @@ class HomeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Reservation $reservation)
     {
-        //
+        $filePath = storage_path('app/public/tickets/' . $reservation->id . '.pdf');
+
+        return response()->file($filePath);
     }
 
     /**

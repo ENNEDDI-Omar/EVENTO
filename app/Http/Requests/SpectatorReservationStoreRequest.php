@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\ValidCodeForEstablishment;
 use Illuminate\Foundation\Http\FormRequest;
 
-class OrganisatorStoreRequest extends FormRequest
+class SpectatorReservationStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +22,8 @@ class OrganisatorStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-                'user_id' => ['required', 'exists:users,id'],
-                'establishment_id' => ['required','array', 'exists:establishments,id'],
-                'confirmation_code' => ['required','digits:4', 'throttle:2,1', new ValidCodeForEstablishment()],
+            'user_id' => ['required', 'exists:users,id'],
+            'event_id' => ['required', 'exists:events,id'],
         ];
     }
 }
