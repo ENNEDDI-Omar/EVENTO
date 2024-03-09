@@ -22,16 +22,17 @@ class EventStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'organisator_id' => ['required', 'exists:organisators,id'],
-            'category_id' => ['required', 'exists:categories,id'],
-            'poster' =>['required', 'image', 'max:4096'],
+            'organisator_id' => ['exists:organisators,id'],
+            'category_id' => ['exists:categories,id'],
+            'poster' =>['required', 'image', 'max:2048'],
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:65535'],
             'location' => ['required', 'string'],
             'date' => ['required', 'date_format:Y-m-d'],
             'capacity' => ['required', 'integer', 'min:0'],
             'available_seats' => ['required', 'integer', 'min:0'],
-            'reservation_type' => ['required', 'in:automatique,manuel'],
+            'reservation_type' => ['required','array'],
+            'reservation_type' => ['in:automatique,manuel'],
             'price' => ['required', 'integer', 'min:0'],
         ];
     }

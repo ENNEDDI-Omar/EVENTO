@@ -20,7 +20,7 @@ class EventController extends Controller
         $user = Auth::user();
         $events = $user->events;
 
-        return view('organisator.dashboard', compact('events'));
+        return view('home', compact('events'));
     }
 
     /**
@@ -36,11 +36,25 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(EventStoreRequest $request)
-    {
-        $data = $request->validated();
-
+    public function store(Request $request)
+    {     
+        //  dd($request->all());
+        $data = $request->validate([
+            'poster' => ['required', 'image', 'max:4096'],
+            'title' => ['required', 'string', 'max:255'],
+            'category_id' => ['exists:categories,id'],
+            'location' => ['required', 'string'],
+            'date' => ['required', 'date_format:Y-m-d'],
+            'capacity' => ['required', 'integer', 'min:0'],
+            'reservation_type' => ['in:automatique,manuel'],
+            'price' => ['required', 'integer', 'min:0'],
+        ]); 
+        
+        $data['organisator_id'] = Auth::user()->organisator->id;
+          
+          
         $event = Event::create($data);
+        
         $event->addMediaFromRequest('poster')->toMediaCollection('events');
 
         return redirect()->route('organisator.events.index')->with('success', 'Event created successfully');

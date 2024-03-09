@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,13 +12,22 @@ class HomeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {  
-        $user=Auth::user();
+    public function index(Request $request)
+    {
+        $user = Auth::user();
+        $searchKey = $request->input("searchKey");
 
-        $acceptedEvents = Event::where('event_status', 'accepted')->get();
-        $acceptedReservations = $user->reservation->where('status', 'accepted')->pluck('event_id');
-        return view('home', compact('acceptedEvents', 'acceptedReservations'));
+        if ($searchKey) {
+            $events = Event::where("title", 'LIKE', "%{$searchKey}%")->paginate(1);
+        } else {
+            $events = Event::where("event_status", "accepted")->paginate(1);
+        }
+
+        $acceptedEvents = Event::where('event_status', 'pending')->paginate(9);
+        $categories = Category::all();
+        $acceptedReservations = $user->reservations->where('status', 'accepted')->pluck('event_id');
+
+        return view('home', compact('events', 'acceptedEvents', 'acceptedReservations', 'categories'));
     }
 
     /**
@@ -39,9 +49,11 @@ class HomeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
+    public function show($id)
     {
-        return view('spectator.events.show', compact('event'));
+        $event = Event::findOrFail($id);
+        $reservations = $event->reservations;
+        return view('show', compact('event', 'reservations'));
     }
 
     /**

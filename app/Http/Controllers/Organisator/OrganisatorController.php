@@ -7,14 +7,16 @@ use App\Http\Requests\OrganisatorStoreRequest;
 use App\Models\Establishment;
 use App\Models\Organisator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class OrganisatorDashController extends Controller
+class OrganisatorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+
     }
 
     /**
@@ -22,8 +24,8 @@ class OrganisatorDashController extends Controller
      */
     public function create()
     {
-        $establishment = Establishment::all();
-        return view('organisator.create', compact('estblishment'));
+        $establishments = Establishment::all();
+        return view('organizer_form', compact('establishments'));
     }
 
     /**
@@ -32,19 +34,20 @@ class OrganisatorDashController extends Controller
     public function store(OrganisatorStoreRequest $request)
     {
         $data = $request->validated();
+        
         $establishment = Establishment::findOrFail($data['establishment_id']);
 
         if ($establishment->confirmation_code !== $data['confirmation_code']) {
             return redirect()->back()->withErrors(['confirmation_code' => 'Invalid confirmation code for the selected establishment.'])->withInput();
         }
         $organisator = Organisator::create([
-            'user_id' => $data['user_id'],
+            'user_id' => Auth::id(),
             'establishment_id' => $data['establishment_id'],
         ]);
 
         $organisator->user->assignRole('organisator');
 
-        return redirect()->route('spectator.home.index')->with('success', 'You became an organisator');
+        return redirect()->route('home')->with('success', 'You became an organisator');
     }
 
     /**

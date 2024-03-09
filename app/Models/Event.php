@@ -43,11 +43,11 @@ class Event extends Model implements HasMedia
         return $this->belongsTo(Category::class);
     }
 
-    public function scopeSearch($query, $search)
-    {
-        return $query->where('title', '%' . $search . '%')
-                     ->orWhere('description', '%' . $search . '%')
-                     ->with(['user', 'category']) ;
+    // public function scopeSearch($query, $search)
+    // {
+    //     return $query->where('title', '%' . $search . '%')
+    //                  ->orWhere('description', '%' . $search . '%')
+    //                  ->with(['user', 'category']) ;
                     
-    }
+    // }
 }

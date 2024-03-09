@@ -23,9 +23,9 @@ class OrganisatorStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-                'user_id' => ['required', 'exists:users,id'],
-                'establishment_id' => ['required','array', 'exists:establishments,id'],
-                'confirmation_code' => ['required','digits:4', 'throttle:2,1', new ValidCodeForEstablishment()],
+                'user_id' => ['exists:users,id'],
+                'establishment_id' => ['exists:establishments,id'],
+                'confirmation_code' => ['required','digits:4', new ValidCodeForEstablishment()],
         ];
     }
 }

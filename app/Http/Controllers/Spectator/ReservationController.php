@@ -31,30 +31,34 @@ class ReservationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(SpectatorReservationStoreRequest $request)
-    {
-        $data = $request->validated();
 
-        $event = Event::findOrFail($data['event_id']);
 
-        $reservation = new Reservation([
-            'user_id' => auth()->id(),
-            'event_id' => $event->id,
-            'status' => $event->reservation_type === 'automatique' ? 'accepted' : 'pending',
-        ]);
 
-        $reservation->save();
-
-        if ($reservation->status === 'accepted') {
-            
-            $ticketController = new TicketController;
-            $ticketController->generateTicket($reservation);
-    
-            return redirect()->route('spectator.home.index')->with('success', 'Reservation and ticket creation successful');
-        } else {
-            return redirect()->route('spectator.home.index')->with('success', 'Reservation request submitted successfully. Once your reservation is processed, your ticket will be sent to you.');
-        }
-    }
+     public function store(SpectatorReservationStoreRequest $request)
+     {
+         // Validation rules, adjust as needed
+         $data = $request->validated();
+     
+         $event = Event::findOrFail($data['event_id']);
+     
+         $reservation = new Reservation([
+             'user_id' => auth()->id(),
+             'event_id' => $event->id,
+             'status' => $event->reservation_type === 'automatique' ? 'accepted' : 'pending',
+         ]);
+     
+         $reservation->save();
+     
+         if ($reservation->status === 'accepted') {
+             $ticketController = new TicketController;
+             $ticketController->generateTicket($reservation);
+     
+             return redirect()->route('home')->with('success', 'Reservation and ticket creation successful');
+         } else {
+             return redirect()->route('spectator.home.index')->with('success', 'Reservation request submitted successfully. Once your reservation is processed, your ticket will be sent to you.');
+         }
+     }
+     
 
 
     /**

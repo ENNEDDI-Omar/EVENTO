@@ -1,8 +1,13 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Organisator\DashController;
+use App\Http\Controllers\Organisator\EventController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Spectator\ReservationController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Organisator\OrganisatorController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +37,11 @@ Route::middleware('auth')->group(function () {
 /////////////routes pour l'utilisateur authentifier:
 
     Route::middleware('auth')->group(function () {
-        Route::get('home', [HomeController::class, 'index']);
+        Route::get('home', [HomeController::class, 'index'])->name("home");
+        Route::get('show/{id}', [HomeController::class, 'show'])->name("show");
+        Route::post('reservations', [ReservationController::class, 'store'])->name("reservation");
+        Route::resource('organizer_form', OrganisatorController::class);
+
     });    
 
 /////////////mes routes par role:
@@ -46,9 +55,13 @@ Route::middleware('auth')->group(function () {
 
 // });
 
-// Route::group(['prefix' => 'organisator', 'as' => 'organisator.', 'namespace' => 'App\Http\Controllers\Organisator', 'middleware' => ['auth', 'organisator']], function () {
+Route::group(['prefix' => 'organisator', 'as' => 'organisator.', 'namespace' => 'App\Http\Controllers\Organisator', 'middleware' => ['auth', 'organisator']], function () {
+    Route::resource('dashboard', DashController::class);
+    Route::resource('events', EventController::class);
+    Route::resource('reservations', ReservationController::class);
+    
 
-// });
+ });
 
 
 

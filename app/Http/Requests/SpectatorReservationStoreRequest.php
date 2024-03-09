@@ -22,7 +22,7 @@ class SpectatorReservationStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', 'exists:users,id'],
+            'user_id' => ['exists:users,id'],
             'event_id' => ['required', 'exists:events,id'],
         ];
     }

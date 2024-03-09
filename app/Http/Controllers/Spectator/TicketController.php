@@ -13,14 +13,18 @@ class TicketController extends Controller
 {
     /**
      * Display a listing of the resource.
-     */
-    private function generateTicket(Reservation $reservation)
-    {
-        $pdf = Pdf::loadView('tickets.ticket_template', compact('reservation'));
+/**
+ * Generate a PDF ticket for the given reservation.
+ */
+public function generateTicket(Reservation $reservation)
+{
+    $pdf = Pdf::loadView('ticket', compact('reservation'));
 
-        // Enregistrez le fichier PDF dans le dossier de stockage
-        $pdf->save(storage_path('app/public/tickets/' . $reservation->id . '.pdf'));
-    }
+    $pdf->save(storage_path('app/public/tickets/' . $reservation->id . '.pdf'));
+
+    return $pdf->download("ticket" . $reservation->id . ".pdf");
+}
+
 
     /**
      * Show the form for creating a new resource.
