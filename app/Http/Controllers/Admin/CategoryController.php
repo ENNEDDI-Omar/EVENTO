@@ -16,8 +16,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
+
         $categories = Category::all();
-        return view('organisator.dashboard', compact('categories'));
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -25,8 +26,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-
-        return view('organisator.eventss.create');
+         
+        return view('admin.categories.create');
     }
 
     /**
@@ -37,7 +38,7 @@ class CategoryController extends Controller
     try {
         Category::create($request->validated());
         Session::flash('success', 'Category created successfully');
-        return redirect()->route('administrator.dashboard.index');
+        return redirect()->route('administrator.categories.index');
     } catch (\Exception $e) 
     {
         return view('admin.error')->with('error', 'Failed to create category.');
@@ -71,7 +72,7 @@ class CategoryController extends Controller
     {
         $category->update($request->validated());
         Session::flash('success', 'Category updated successfully');
-        return redirect()->route('administrator.dashboard.index');
+        return redirect()->route('administrator.categories.index');
     } 
     catch (\Throwable $th) 
     {
@@ -88,7 +89,7 @@ class CategoryController extends Controller
         $category->delete();
         Session::flash('success', 'Category deleted successfully');
 
-        return redirect()->route('administrator.dashboard.index');
+        return redirect()->route('administrator.categories.index');
     }
 
     public function restore($id)
@@ -100,7 +101,7 @@ class CategoryController extends Controller
 
             $category->restore();
             Session::flash('success', 'Category restored successfully');
-            return redirect()->route('administrator.dashboard.index');
+            return redirect()->route('administrator.categories.index');
             
         } else {
             Session::flash('error', 'Category not found');

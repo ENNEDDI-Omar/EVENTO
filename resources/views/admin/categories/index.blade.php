@@ -1,4 +1,3 @@
-
 <x-app-layout>
     @vite('resources/css/app.css')
     <div class="flex bg-gray-100 min-h-screen">
@@ -130,7 +129,7 @@
                         <div>
                             <span class="inline-block text-2xl font-bold">9</span>
                             <span class="inline-block text-xl text-gray-500 font-semibold">(14%)</span>
-                            <span class="block text-gray-500">Most Performing Organizers</span>
+                            <span class="block text-gray-500">Underperforming Artistes</span>
                         </div>
                     </div>
                     <div class="flex items-center p-8 bg-white shadow rounded-lg">
@@ -148,12 +147,74 @@
                         </div>
                     </div>
                 </section>
-                <section>
-                    //////////////////////////////////////////
-                    /////////////////////////////////////////
+                <section class="grid md:grid-cols-2 xl:grid-cols-4 xl:grid-rows-3 xl:grid-flow-col gap-6">
+                    <div class="container mx-auto my-8">
+                        <h1 class="text-3xl font-semibold mb-4">Categories</h1>
+
+                        <button x-data="{ showModal: false }" @click="showModal = true"
+                        class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md mb-4">
+                    Create Category
+                </button>
+        
+                {{-- Modal --}}
+                <div x-show="showModal" @click.away="showModal = false"
+                     class="fixed inset-0 z-50 flex items-center justify-center">
+                    <div class="bg-black opacity-50 absolute inset-0"></div>
+                    <div class="bg-white p-8 rounded-md shadow-md">
+                        {{-- Add your modal content and form for creating a category --}}
+                        <h2 class="text-2xl font-semibold mb-4">Create Category</h2>
+                        <form action="{{ route('administrator.categories.store') }}" method="post">
+                            @csrf
+                            <label for="categoryName" class="block text-gray-700">Category Name:</label>
+                            <input type="text" id="categoryName" name="name" class="border rounded-md py-1 px-2 mb-4">
+        
+                            <button type="submit" class="bg-blue-500 text-white py-1 px-4 rounded-md">Create</button>
+                        </form>
+                    </div>
+                </div>
+        
+                
+                        @if (count($categories) > 0)
+                            <table class="min-w-full bg-white border border-gray-300 shadow-md rounded-md overflow-hidden">
+                                <thead>
+                                    <tr>
+                                        <th class="py-2 px-4 border-b">ID</th>
+                                        <th class="py-2 px-4 border-b">Name</th>
+                                        <th class="py-2 px-4 border-b">Created At</th>
+                                        <th class="py-2 px-4 border-b">Updated At</th>
+                                        <th class="py-2 px-4 border-b">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($categories as $category)
+                                        <tr>
+                                            <td class="py-2 px-4 border-b">{{ $category->id }}</td>
+                                            <td class="py-2 px-4 border-b">{{ $category->name }}</td>
+                                            <td class="py-2 px-4 border-b">{{ $category->created_at->format('Y-m-d') }}</td>
+                                            <td class="py-2 px-4 border-b">{{ $category->updated_at->format('Y-m-d') }}</td>
+                                            <td class="py-2 px-4 border-b">
+                                                {{-- Add your actions (e.g., edit, delete) --}}
+                                                <a href="{{ route('administrator.categories.edit', $category) }}" class="text-blue-500 hover:underline">Edit</a>
+                                                <form action="{{ route('administrator.categories.destroy', $category) }}" method="post" class="inline">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="text-red-500 hover:underline ml-2" onclick="return confirm('Are you sure you want to delete this category?')">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <p class="text-gray-600">No categories found.</p>
+                        @endif
+                    </div>
                 </section>
                 
             </main>
         </div>
     </div>
+    @push('scripts')
+    <script src="{{ asset('js/script.js') }}"></script>
+@endpush
 </x-app-layout>
