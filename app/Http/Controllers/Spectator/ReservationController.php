@@ -55,7 +55,7 @@ class ReservationController extends Controller
      
              return redirect()->route('home')->with('success', 'Reservation and ticket creation successful');
          } else {
-             return redirect()->route('spectator.home.index')->with('success', 'Reservation request submitted successfully. Once your reservation is processed, your ticket will be sent to you.');
+             return redirect()->route('home')->with('success', 'Reservation request submitted successfully. Once your reservation is processed, your ticket will be sent to you.');
          }
      }
      

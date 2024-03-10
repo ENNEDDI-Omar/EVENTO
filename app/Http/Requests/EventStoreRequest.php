@@ -24,14 +24,14 @@ class EventStoreRequest extends FormRequest
         return [
             'organisator_id' => ['exists:organisators,id'],
             'category_id' => ['exists:categories,id'],
-            'poster' =>['required', 'image', 'max:2048'],
+            // 'poster' =>['required', 'image', 'max:2048'],
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:65535'],
             'location' => ['required', 'string'],
             'date' => ['required', 'date_format:Y-m-d'],
             'capacity' => ['required', 'integer', 'min:0'],
             'available_seats' => ['required', 'integer', 'min:0'],
-            'reservation_type' => ['required','array'],
+            'reservation_type' => ['required'],
             'reservation_type' => ['in:automatique,manuel'],
             'price' => ['required', 'integer', 'min:0'],
         ];

@@ -12,7 +12,7 @@ class DashController extends Controller
      */
     public function index()
     {
-    
+       
     }
 
     /**

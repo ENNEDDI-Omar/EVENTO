@@ -1,4 +1,4 @@
-<x-app-layout>
+{{-- <x-app-layout>
     @vite('resources/css/app.css')
     <div class="flex bg-gray-100 min-h-screen">
         <aside class="hidden sm:flex sm:flex-col">
@@ -275,4 +275,9 @@
             </main>
         </div>
     </div>
-</x-app-layout>
+</x-app-layout> --}}
+
+@extends('layouts.Dash')
+@section('content')
+<H1>Organisator->Dash</H1>
+@endsection

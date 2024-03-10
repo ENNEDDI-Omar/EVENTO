@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Organisator\DashController;
 use App\Http\Controllers\Organisator\EventController;
+use App\Http\Controllers\Organisator\ReservationController as organisatorReservationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Spectator\ReservationController;
 use Illuminate\Support\Facades\Route;
@@ -46,20 +47,20 @@ Route::middleware('auth')->group(function () {
 
 /////////////mes routes par role:
 
-// Route::group(['prefix' => 'administrator', 'as' => 'administrator.', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => ['auth', 'administrator']], function () {
+Route::group(['prefix' => 'administrator', 'as' => 'administrator.', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => ['auth', 'administrator']], function () {
     
-//     Route::resource('dashboard','AdminDashController');
-//     Route::resource('events','EventController');
-//     Route::resource('categories','CategoryController');
-//     Route::resource('establishments','EstablishmentController');  
+    Route::resource('dashboard','AdminDashController');
+    Route::resource('events','EventController');
+    Route::resource('categories','CategoryController');
+    Route::resource('establishments','EstablishmentController');  
 
-// });
+});
 
 Route::group(['prefix' => 'organisator', 'as' => 'organisator.', 'namespace' => 'App\Http\Controllers\Organisator', 'middleware' => ['auth', 'organisator']], function () {
     Route::resource('dashboard', DashController::class);
     Route::resource('events', EventController::class);
-    Route::resource('reservations', ReservationController::class);
-    
+    Route::resource('reservations', organisatorReservationController::class);
+    Route::post('/user/reservations', [organisatorReservationController::class, 'manageReservation']);
 
  });
 

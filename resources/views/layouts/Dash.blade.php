@@ -5,10 +5,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Job Connect</title>
+    <title>EVENTO</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    @vite('resources/css/app.css')
 
 </head>
 
@@ -30,18 +31,18 @@
                 <div class="divide-y dark:divide-gray-700">
                     <ul class="pt-2 pb-4 space-y-1 text-sm">
                         <li class="dark:bg-gray-800 dark:text-gray-50">
-                            <a rel="noopener noreferrer" href="dashboard"
+                            <a rel="noopener noreferrer" href="{{route('home')}}"
                                 class="flex items-center p-2 space-x-3 rounded-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
                                     class="w-5 h-5 fill-current dark:text-gray-400"><path d="M0 96C0 60.7 28.7 32 64
                                     32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zm64
                                     64V416H224V160H64zm384 0H288V416H448V160z" />
                                 </svg>
-                                <span>Dashboard</span>
+                                <span>HOME</span>
                             </a>
                         </li>
                         <li>
-                            <a rel="noopener noreferrer" href=""
+                            <a rel="noopener noreferrer" href="{{route('organisator.events.index')}}"
                                 class="flex items-center p-2 space-x-3 rounded-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
                                     class="w-5 h-5 fill-current dark:text-gray-400">
@@ -52,7 +53,7 @@
                             </a>
                         </li>
                         <li>
-                            <a rel="noopener noreferrer" href=""
+                            <a rel="noopener noreferrer" href="{{route('organisator.reservations.index')}}"
                                 class="flex items-center p-2 space-x-3 rounded-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
                                     class="w-5 h-5 fill-current dark:text-gray-400">

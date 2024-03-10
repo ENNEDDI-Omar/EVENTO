@@ -23,7 +23,7 @@ class HomeController extends Controller
             $events = Event::where("event_status", "accepted")->paginate(1);
         }
 
-        $acceptedEvents = Event::where('event_status', 'pending')->paginate(9);
+        $acceptedEvents = Event::where('event_status', 'pending')->paginate(6);
         $categories = Category::all();
         $acceptedReservations = $user->reservations->where('status', 'accepted')->pluck('event_id');
 

@@ -12,22 +12,37 @@
 
 <body class="bg-gray-100 p-6">
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="max-w-md mx-auto bg-white p-8 border rounded shadow-md">
         <h2 class="text-2xl font-bold mb-6">Create Event</h2>
 
-        <form action="{{ route('organisator.events.store') }}" method="POST">
+        <form action="{{ route('organisator.events.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-4">
                 <label for="poster" class="block text-sm font-medium text-gray-600">Event Poster:</label>
-                <input type="file" id="poster" name="poster" accept="image/*"
-                    class="mt-1 p-2 border rounded w-full">
+                <input type="file" id="poster" name="poster" accept="image/*" class="mt-1 p-2 border rounded w-full">
             </div>
 
             <div class="mb-4">
                 <label for="title" class="block text-sm font-medium text-gray-600">Title:</label>
                 <input type="text" id="title" name="title" class="mt-1 p-2 border rounded w-full">
             </div>
+
+            <div class="mb-4">
+                <label for="description" class="block text-sm font-medium text-gray-600">Description:</label>
+                <textarea id="description" name="description" class="mt-1 p-2 border rounded w-full"></textarea>
+            </div>
+
             <div class="mb-4">
                 <label for="category_id" class="block text-sm font-medium text-gray-600">Select Category:</label>
                 <select name="category_id" id="category_id">
@@ -36,7 +51,6 @@
                     @endforeach
                 </select>
             </div>
-            
 
             <div class="mb-4">
                 <label for="location" class="block text-sm font-medium text-gray-600">Location:</label>
@@ -51,6 +65,13 @@
             <div class="mb-4">
                 <label for="capacity" class="block text-sm font-medium text-gray-600">Capacity:</label>
                 <input type="number" id="capacity" name="capacity" class="mt-1 p-2 border rounded w-full">
+            </div>
+
+            
+
+            <div class="mb-4">
+                <label for="available_seats" class="block text-sm font-medium text-gray-600">Available Seats:</label>
+                <input type="number" id="available_seats" name="available_seats" class="mt-1 p-2 border rounded w-full">
             </div>
 
             <div class="mb-4">

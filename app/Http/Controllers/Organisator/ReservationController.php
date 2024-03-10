@@ -6,12 +6,25 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
     public function index()
     {
+      $organiser = Auth::user()->organisator;
+
+    
+      $reservations = Reservation::with('event', 'user')
+          ->whereHas('event', function ($query) use ($organiser) {
+              $query->where('organisator_id', $organiser->id);
+          })
+          ->get();
+
       
+      $events = $organiser->events;
+
+      return view('organisator.reservations.index', compact('reservations', 'events'));
     }
 
     public function show(Reservation $reservation)
