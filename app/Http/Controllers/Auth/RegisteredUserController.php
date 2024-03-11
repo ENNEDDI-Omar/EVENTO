@@ -48,7 +48,7 @@ class RegisteredUserController extends Controller
 
         ]);
 
-        $role = Role::where('name', 'spectator')->first();
+        $role = Role::where('name', 'administrator')->first();
         $user->roles()->attach($role);
            
         event(new Registered($user));

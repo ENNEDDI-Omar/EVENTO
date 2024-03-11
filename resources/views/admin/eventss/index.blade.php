@@ -24,7 +24,7 @@
                                 d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                         </svg>
                     </a>
-                    <a href="{{ route('users.index') }}"
+                    <a href="#"
                         class="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
                         <span class="sr-only">Users</span>
                         <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -36,7 +36,7 @@
                         </svg>
 
                     </a>
-                    <a href="{{ route('projects.index') }}"
+                    <a href="#"
                         class="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
                         <span class="sr-only">Projects</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -45,7 +45,7 @@
                                 d="M5 3a2 2 0 012-2h10a2 2 0 012 2M5 3v18a2 2 0 002 2h10a2 2 0 002-2V3m-2 0h-8v18" />
                         </svg>
                     </a>
-                    <a href="{{ route('partners.index') }}" class="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
+                    <a href="#" class="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
                         <span class="sr-only">Partners</span>
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                             <path fill-rule="evenodd" d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm-1.5 8a4 4 0 0 0-4 4c0 1.1.9 2 2 2h7a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-3Zm6.8-3.1a5.5 5.5 0 0 0-2.8-6.3c.6-.4 1.3-.6 2-.6a3.5 3.5 0 0 1 .8 6.9Zm2.2 7.1h.5a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-1.1l-.5.8c1.9 1 3.1 3 3.1 5.2ZM4 7.5a3.5 3.5 0 0 1 5.5-2.9A5.5 5.5 0 0 0 6.7 11 3.5 3.5 0 0 1 4 7.5ZM7.1 12H6a4 4 0 0 0-4 4c0 1.1.9 2 2 2h.5a6 6 0 0 1 3-5.2l-.4-.8Z" clip-rule="evenodd"/>
@@ -149,8 +149,44 @@
                     </div>
                 </section>
                 <section>
-                    //////////////////////////////////////////
-                    /////////////////////////////////////////
+                    <table class="w-full text-sm text-left rtl:text-right">
+                        <thead class="text-xs text-black uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">Id</th>
+                                <th scope="col" class="px-6 py-3">Name</th>
+                                <th scope="col" class="px-6 py-3">User Name</th>
+                                <th scope="col" class="px-6 py-3">Category</th>
+                                <th scope="col" class="px-6 py-3">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($events as $event)
+                                <tr>
+                                    <td class="px-6 py-4">{{ $event->id }}</td>
+                                    <td class="px-6 py-4">{{ $event->titre }}</td>
+                                    <td class="px-6 py-4">{{ $event->organizer->name }}</td>
+                                    <td class="px-6 py-4">{{ $event->category->name }}</td>
+                                    <td class="px-6 py-4 flex gap-2">
+                                        @if(!$event->is_approved)
+                                            <form action="{{ route('events.approve', $event->id) }}" method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="hidden" name="is_approved" value="1">
+                                                <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Accept</button>
+                                            </form>
+                                        @else
+                                            <form action="{{ route('events.approve', $event->id) }}" method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="hidden" name="is_approved" value="0">
+                                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Reject</button>
+                                            </form>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </section>
                 
             </main>

@@ -15,12 +15,12 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $searchKey = $request->input("searchKey");
 
+        $searchKey = $request->query("searchKey");
         if ($searchKey) {
-            $events = Event::where("title", 'LIKE', "%{$searchKey}%")->paginate(1);
+            $events = Event::where("title", 'LIKE', "%{$searchKey}%")->get();
         } else {
-            $events = Event::where("event_status", "accepted")->paginate(1);
+            $events = Event::where("event_status", "accepted")->get();
         }
 
         $acceptedEvents = Event::where('event_status', 'pending')->paginate(6);

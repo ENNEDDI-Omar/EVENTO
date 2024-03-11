@@ -13,7 +13,7 @@ class EstablishmentController extends Controller
     public function index()
     {
         $establishments=Establishment::all();
-      return view('admin.dashboard', compact('establishments'));
+      return view('admin.establishment.index', compact('establishments'));
     }
 
     public function show(Establishment $establishment)
@@ -29,7 +29,7 @@ class EstablishmentController extends Controller
     public function store(EstablishmentStoreRequest $request)
     {
         Establishment::create($request->validated());
-        return redirect()->route('administrator.dashboard.index')->with('success', 'Establishment created successfully');
+        return redirect()->route('administrator.establishments.index')->with('success', 'Establishment created successfully');
     }
 
     public function edit(Establishment $establishment)
@@ -40,12 +40,13 @@ class EstablishmentController extends Controller
     public function update(EstablishmentUpdateRequest $request, Establishment $establishment)
     {
        $establishment->update($request->validated());
-       return redirect()->route('administrator.dashboard.index')->with('success', 'Establishment updated successffuly');
+       return redirect()->route('administrator.establishments.index')->with('success', 'Establishment updated successffuly');
     }
 
     public function destroy(Establishment $establishment)
     {
        $establishment->delete();
-       return redirect()->route('administrator.dashboard.index')->with('success', 'Establishment deleted successffuly');
+       return redirect()->route('administrator.establishments.index')->with('success', 'Establishment deleted successffuly');
     }
+    
 }

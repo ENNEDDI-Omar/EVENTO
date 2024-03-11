@@ -12,15 +12,17 @@
                 </div>
             @endif
 
-            <form action="{{ route('home') }}" method="get" class="flex gap-2">
-                @csrf
-                <input name="searchKey" type="text" placeholder="Search..."
-                    class="w-80 border border-gray-300 p-2 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150 ease-in-out" />
-                <button type="submit"
-                    class="bg-blue-700 text-white p-2 rounded-lg hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-700 focus:ring-opacity-50 transition duration-150 ease-in-out">
+      
+
+            <form action="{{route('home')}}" method="get" class="flex gap-2">
+                <input name="searchKey" type="text" placeholder="Search..." class="w-80 border border-gray-300 p-2 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150 ease-in-out" />
+                <button type="submit" class="bg-blue-700 text-white p-2 rounded-lg hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-700 focus:ring-opacity-50 transition duration-150 ease-in-out">
                     Search
                 </button>
             </form>
+
+
+
 
         </div>
 
@@ -70,9 +72,9 @@
                     </div>
                 @endforeach
             </div>
-            <div>
+            {{-- <div>
                 {{ $acceptedEvents->links() }}
-            </div>
+            </div> --}}
 
             {{--        <div class="mt-8 flex justify-center"> --}}
             {{--            {{ $events->links() }} --}}

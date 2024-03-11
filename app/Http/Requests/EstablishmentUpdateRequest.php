@@ -22,8 +22,8 @@ class EstablishmentUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['sometimes', 'string', 'max:255'],
-            'confirmation_code' => ['sometimes', 'numeric', 'digits:4'],
+            'name' => ['string', 'max:255', 'exists:establishments,name'],
+        'confirmation_code' => ['numeric', 'digits:4', 'unique:establishments,confirmation_code'],
         ];
     }
 }

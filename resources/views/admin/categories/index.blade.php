@@ -14,7 +14,7 @@
             <div class="flex-grow flex flex-col justify-between text-gray-500">
                 <nav class="flex flex-col mx-4 my-6 space-y-4">
 
-                    <a href="#"
+                    <a href="{{ route('administrator.dashboard.index') }}"
                         class="inline-flex items-center justify-center py-3 text-purple-600 bg-white rounded-lg">
                         <span class="sr-only">Dashboard</span>
                         <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -23,7 +23,7 @@
                                 d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                         </svg>
                     </a>
-                    <a href="{{ route('users.index') }}"
+                    <a href="#"
                         class="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
                         <span class="sr-only">Users</span>
                         <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -35,7 +35,7 @@
                         </svg>
 
                     </a>
-                    <a href="{{ route('projects.index') }}"
+                    <a href="#"
                         class="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
                         <span class="sr-only">Projects</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -44,11 +44,15 @@
                                 d="M5 3a2 2 0 012-2h10a2 2 0 012 2M5 3v18a2 2 0 002 2h10a2 2 0 002-2V3m-2 0h-8v18" />
                         </svg>
                     </a>
-                    <a href="{{ route('partners.index') }}" class="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
+                    <a href="#"
+                        class="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
                         <span class="sr-only">Partners</span>
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                            <path fill-rule="evenodd" d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm-1.5 8a4 4 0 0 0-4 4c0 1.1.9 2 2 2h7a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-3Zm6.8-3.1a5.5 5.5 0 0 0-2.8-6.3c.6-.4 1.3-.6 2-.6a3.5 3.5 0 0 1 .8 6.9Zm2.2 7.1h.5a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-1.1l-.5.8c1.9 1 3.1 3 3.1 5.2ZM4 7.5a3.5 3.5 0 0 1 5.5-2.9A5.5 5.5 0 0 0 6.7 11 3.5 3.5 0 0 1 4 7.5ZM7.1 12H6a4 4 0 0 0-4 4c0 1.1.9 2 2 2h.5a6 6 0 0 1 3-5.2l-.4-.8Z" clip-rule="evenodd"/>
-                        </svg>    
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd"
+                                d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm-1.5 8a4 4 0 0 0-4 4c0 1.1.9 2 2 2h7a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-3Zm6.8-3.1a5.5 5.5 0 0 0-2.8-6.3c.6-.4 1.3-.6 2-.6a3.5 3.5 0 0 1 .8 6.9Zm2.2 7.1h.5a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-1.1l-.5.8c1.9 1 3.1 3 3.1 5.2ZM4 7.5a3.5 3.5 0 0 1 5.5-2.9A5.5 5.5 0 0 0 6.7 11 3.5 3.5 0 0 1 4 7.5ZM7.1 12H6a4 4 0 0 0-4 4c0 1.1.9 2 2 2h.5a6 6 0 0 1 3-5.2l-.4-.8Z"
+                                clip-rule="evenodd" />
+                        </svg>
                     </a>
                     <i class="fa-duotone fa-handshake"></i>
                 </nav>
@@ -150,32 +154,20 @@
                 <section class="grid md:grid-cols-2 xl:grid-cols-4 xl:grid-rows-3 xl:grid-flow-col gap-6">
                     <div class="container mx-auto my-8">
                         <h1 class="text-3xl font-semibold mb-4">Categories</h1>
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                <strong>Error:</strong> {{ session('error') }}
+                            </div>
+                        @endif
+                        <button onclick="openCustomModal()" class="bg-blue-500 text-white py-2 px-4 rounded-md mt-4">
+                            Create a Category
+                        </button>
 
-                        <button x-data="{ showModal: false }" @click="showModal = true"
-                        class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md mb-4">
-                    Create Category
-                </button>
-        
-                {{-- Modal --}}
-                <div x-show="showModal" @click.away="showModal = false"
-                     class="fixed inset-0 z-50 flex items-center justify-center">
-                    <div class="bg-black opacity-50 absolute inset-0"></div>
-                    <div class="bg-white p-8 rounded-md shadow-md">
-                        {{-- Add your modal content and form for creating a category --}}
-                        <h2 class="text-2xl font-semibold mb-4">Create Category</h2>
-                        <form action="{{ route('administrator.categories.store') }}" method="post">
-                            @csrf
-                            <label for="categoryName" class="block text-gray-700">Category Name:</label>
-                            <input type="text" id="categoryName" name="name" class="border rounded-md py-1 px-2 mb-4">
-        
-                            <button type="submit" class="bg-blue-500 text-white py-1 px-4 rounded-md">Create</button>
-                        </form>
-                    </div>
-                </div>
-        
-                
+
+
                         @if (count($categories) > 0)
-                            <table class="min-w-full bg-white border border-gray-300 shadow-md rounded-md overflow-hidden">
+                            <table
+                                class="min-w-full bg-white border border-gray-300 shadow-md rounded-md overflow-hidden">
                                 <thead>
                                     <tr>
                                         <th class="py-2 px-4 border-b">ID</th>
@@ -190,15 +182,24 @@
                                         <tr>
                                             <td class="py-2 px-4 border-b">{{ $category->id }}</td>
                                             <td class="py-2 px-4 border-b">{{ $category->name }}</td>
-                                            <td class="py-2 px-4 border-b">{{ $category->created_at->format('Y-m-d') }}</td>
-                                            <td class="py-2 px-4 border-b">{{ $category->updated_at->format('Y-m-d') }}</td>
+                                            <td class="py-2 px-4 border-b">{{ $category->created_at->format('Y-m-d') }}
+                                            </td>
+                                            <td class="py-2 px-4 border-b">{{ $category->updated_at->format('Y-m-d') }}
+                                            </td>
                                             <td class="py-2 px-4 border-b">
                                                 {{-- Add your actions (e.g., edit, delete) --}}
-                                                <a href="{{ route('administrator.categories.edit', $category) }}" class="text-blue-500 hover:underline">Edit</a>
-                                                <form action="{{ route('administrator.categories.destroy', $category) }}" method="post" class="inline">
+                                                <button
+                                                    onclick="openCustomModal('edit', {{ $category->id }}, '{{ $category->name }}')"
+                                                    class="bg-yellow-500 text-white py-2 px-4 rounded-md mt-4">
+                                                    Edit
+                                                </button>
+                                                <form
+                                                    action="{{ route('administrator.categories.destroy', $category) }}"
+                                                    method="post" class="inline">
                                                     @csrf
                                                     @method('delete')
-                                                    <button type="submit" class="text-red-500 hover:underline ml-2" onclick="return confirm('Are you sure you want to delete this category?')">Delete</button>
+                                                    <button type="submit" class="text-red-500 hover:underline ml-2"
+                                                        onclick="return confirm('Are you sure you want to delete this category?')">Delete</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -210,11 +211,78 @@
                         @endif
                     </div>
                 </section>
-                
+                <div id="customModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+                    <div class="flex items-center justify-center min-h-screen p-4">
+                        <div class="bg-white p-8 rounded-md shadow-md w-full max-w-md">
+                            <h2 class="text-2xl font-semibold mb-4">Custom Modal</h2>
+                            <form id="createForm" action="{{ route('administrator.categories.store') }}"
+                                method="post">
+                                @csrf
+                                <label for="categoryName" class="block text-gray-700">Category Name:</label>
+                                <input type="text" id="categoryName" name="name"
+                                    class="border rounded-md py-1 px-2 mb-4 w-full" required>
+                                @if ($errors->has('name'))
+                                    <p class="text-red-500 text-sm">{{ $errors->first('name') }}</p>
+                                @endif
+                                <button type="submit" class="bg-blue-500 text-white py-1 px-4 rounded-md"
+                                    id="createBtn">Create</button>
+                            </form>
+
+                            <!-- Formulaire pour la mise à jour -->
+                            <form id="editForm" action="{{ route('administrator.categories.update', $category) }}"
+                                method="post" style="display: none;">
+                                @csrf
+                                @method('put')
+                                <input type="hidden" id="editCategoryId" name="category_id" value="">
+                                <label for="editCategoryName" class="block text-gray-700">Category Name:</label>
+                                <input type="text" id="editCategoryName" name="name"
+                                    class="border rounded-md py-1 px-2 mb-4 w-full">
+                                @if ($errors->has('name'))
+                                    <p class="text-red-500 text-sm">{{ $errors->first('name') }}</p>
+                                @endif
+                                <button type="submit" class="bg-yellow-500 text-white py-1 px-4 rounded-md"
+                                    id="editBtn">Update</button>
+                            </form>
+                            <button onclick="closeCustomModal()" class="mt-4 text-gray-600 hover:underline">Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
     </div>
-    @push('scripts')
-    <script src="{{ asset('js/script.js') }}"></script>
-@endpush
+
+
 </x-app-layout>
+
+<script>
+    // Function to open the custom modal
+    function openCustomModal(action, categoryId = null, categoryName = null) {
+        var modal = document.getElementById('customModal');
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+
+        // Mettez à jour le formulaire et le bouton en fonction de l'action
+        var createForm = document.getElementById('createForm');
+        var editForm = document.getElementById('editForm');
+
+        if (action === 'create') {
+            createForm.style.display = 'block';
+            editForm.style.display = 'none';
+        } else if (action === 'edit' && categoryId !== null && categoryName !== null) {
+            createForm.style.display = 'none';
+            editForm.style.display = 'block';
+
+            // Remplir les champs pour la mise à jour
+            document.getElementById('editCategoryId').value = categoryId;
+            document.getElementById('editCategoryName').value = categoryName;
+        }
+    }
+
+    // Function to close the custom modal
+    function closeCustomModal() {
+        var modal = document.getElementById('customModal');
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+</script>

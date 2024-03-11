@@ -14,10 +14,15 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events=Event::paginate(10);
-
+        $organizerIds = Event::distinct()->pluck('organisator_id')->toArray();
+    
+        $events = Event::whereIn("organisator_id", $organizerIds)
+                       ->where("event_status", "pending")
+                       ->get();
+    
         return view('admin.eventss.index', compact('events'));
     }
+    
 
 
     /**
