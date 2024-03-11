@@ -14,7 +14,7 @@
 
       
 
-            <form action="{{route('home')}}" method="get" class="flex gap-2">
+            <form action="{{route('home.search')}}" method="get" class="flex gap-2">
                 <input name="searchKey" type="text" placeholder="Search..." class="w-80 border border-gray-300 p-2 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150 ease-in-out" />
                 <button type="submit" class="bg-blue-700 text-white p-2 rounded-lg hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-700 focus:ring-opacity-50 transition duration-150 ease-in-out">
                     Search
@@ -38,7 +38,7 @@
 
                 @foreach ($acceptedEvents as $event)
                     <div class="card border border-gray-200 w-full md:w-[300px] shadow-lg rounded-lg overflow-hidden">
-                        <img src="{{ $event->getFirstMediaUrl('poster') }}" alt="image" class="w-full object-cover">
+                        <img src="{{ $event->getFirstMediaUrl('events') }}" alt="image" class="w-full object-cover">
                         <div class="p-4">
                             <span
                                 class="inline-block mt-1 bg-blue-100 text-blue-800 text-sm font-semibold px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">{{ $event->category->name }}</span>
@@ -51,18 +51,18 @@
                             <div class="flex items-center gap-2">
 
 
-                                <form action="{{ route('reservation') }}" method="post" class="bg-red-500 ">
+                                <form action="{{ route('reservation') }}" method="post" class="">
                                     @csrf
                                     <input type="hidden" name="title" value="{{ $event->title }}">
                                     <input type="hidden" name="location" value="{{ $event->location }}">
 
                                     <input type="hidden" value="{{ $event->id }}" name="event_id">
                                     <button type="submit"
-                                        class="mt-4 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium text-white rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Buy</button>
+                                        class=" focus:outline-none text-white bg-green-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:focus:ring-yellow-900">Buy</button>
                                 </form>
 
 
-                                <form class="relative top-2" action="{{ route('show', $event) }}" method="GET">
+                                <form class="relative top-1" action="{{ route('show', $event) }}" method="GET">
                                     <button
                                         class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Details</button>
                                 </form>
@@ -72,9 +72,9 @@
                     </div>
                 @endforeach
             </div>
-            {{-- <div>
+            <div>
                 {{ $acceptedEvents->links() }}
-            </div> --}}
+            </div>
 
             {{--        <div class="mt-8 flex justify-center"> --}}
             {{--            {{ $events->links() }} --}}

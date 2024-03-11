@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Page Title</title>
+    <title>EVENTO</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -20,7 +20,7 @@
                 xmlns="http://www.w3.org/2000/svg">
                 <path d="M96 0V47L48 94H0V47L48 0H96Z" />
             </svg>
-            Flowrift
+            EVENTO
         </a>
         <!-- logo - end -->
 
@@ -37,7 +37,7 @@
 
         <!-- buttons - start -->
         @if (Auth::user()->hasRole('organisator'))
-        <a href="{{route('organisator.events.create')}}" class="hidden rounded-lg bg-gray-200 px-2 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:inline-block">Create an Event</a>
+        <a href="{{route('organisator.events.create')}}" class="hidden rounded-lg bg-green-400 px-2 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:inline-block">Create an Event</a>
         @elseif (Auth::user()->hasRole('spectator')) 
         <a href="{{route('organizer_form.create')}}" class="hidden rounded-lg bg-gray-200 px-2 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:inline-block">Became an Organizer!</a>
         @endif

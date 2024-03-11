@@ -12,22 +12,27 @@ class HomeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
         $user = Auth::user();
 
+        
+        $acceptedEvents = Event::paginate(6);
+
+        return view('home', compact( 'acceptedEvents'));
+    }
+
+    public function search(Request $request)
+    {
         $searchKey = $request->query("searchKey");
         if ($searchKey) {
-            $events = Event::where("title", 'LIKE', "%{$searchKey}%")->get();
+            $acceptedEvents = Event::where("title", 'LIKE', "%{$searchKey}%")->paginate(1);
         } else {
-            $events = Event::where("event_status", "accepted")->get();
+            $acceptedEvents = Event::where("event_status", "accepted")->paginate(3);
         }
+         return view('home', compact('acceptedEvents'));
 
-        $acceptedEvents = Event::where('event_status', 'pending')->paginate(6);
-        $categories = Category::all();
-        $acceptedReservations = $user->reservations->where('status', 'accepted')->pluck('event_id');
 
-        return view('home', compact('events', 'acceptedEvents', 'acceptedReservations', 'categories'));
     }
 
     /**

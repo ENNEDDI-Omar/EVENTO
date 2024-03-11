@@ -365,8 +365,8 @@
             <section class="grid md:grid-cols-2 xl:grid-cols-4 xl:grid-rows-3 xl:grid-flow-col gap-6">
                 <div class="flex flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg">
                     <div class="px-6 py-5 font-semibold border-b border-gray-100">Users:</div>
-                    {{-- <div class="p-4 flex-grow">
-                        <table class="table table-bordered">
+                     <div class="p-4 flex-grow">
+                        {{-- <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>Nom</th>
@@ -376,18 +376,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($users as $user)
+                                @foreach ($my_events as $event)
                                     <tr>
-                                        <td>{{ $user->nom }}</td>
-                                        <td>{{ $user->prenom }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>{{ $user->tel }}</td>
+                                        <td>{{ $event->title }}</td>
+                                        <td>{{ $event->description }}</td>
+                                        <td>{{ $event->price }}</td>
+                                        <td>{{ $event->location }}</td>
 
                                     </tr>
                                 @endforeach
                             </tbody>
-                        </table>
-                    </div> --}}
+                        </table> --}}
+                    </div>
                 </div>
                 <div class="flex items-center p-8 bg-white shadow rounded-lg">
                     <div
@@ -402,8 +402,8 @@
                         </svg>
                     </div>
                     <div>
-                        <span class="block text-2xl font-bold">25</span>
-                        <span class="block text-gray-500">Lections left</span>
+                        <span class="block text-2xl font-bold">{{$total_reservations}}</span>
+                        <span class="block text-gray-500">total reservations</span>
                     </div>
                 </div>
                 <div class="flex items-center p-8 bg-white shadow rounded-lg">
@@ -416,8 +416,8 @@
                         </svg>
                     </div>
                     <div>
-                        <span class="block text-2xl font-bold">139</span>
-                        <span class="block text-gray-500">Hours spent on lections</span>
+                        <span class="block text-2xl font-bold">{{$total_events}}</span>
+                        <span class="block text-gray-500">my events</span>
                     </div>
                 </div>
                 <div class="row-span-3 bg-white shadow rounded-lg">
@@ -437,26 +437,37 @@
                         </button>
                         <!-- Refer here for full dropdown menu code: https://tailwindui.com/components/application-ui/elements/dropdowns -->
                     </div>
+
+
+                     
+
+                     
+
+
+                     
                     <div class="overflow-y-auto" style="max-height: 24rem;">
-                        {{-- <ul class="p-6 space-y-6">
-                            @foreach ($projects as $project)
+                        {{-- @dd(my_events); --}}
+                         <ul class="p-6 space-y-6">
+
+                            
+                            @foreach ($my_events as $event)
                                 <li class="flex items-center">
                                     <div class="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                                        <img src="{{ $project->getFirstMediaUrl('projects') }}"
+                                        <img src="{{ $event->getFirstMediaUrl('events') }}"
                                             alt="Project image">
                                     </div>
-                                    <span class="text-gray-600"> {{ $project->titre }} </span>
-                                    <span class="ml-auto font-semibold"> {{ $project->statut }} </span>
+                                    <span class="text-gray-600"> {{ $event->title }} </span>
+                                    <span class="ml-auto font-semibold"> {{ $event->event_status }} </span>
                                 </li>
                             @endforeach
 
-                        </ul> --}}
+                        </ul>
                     </div>
                 </div>
                 <div class="flex flex-col row-span-3 bg-white shadow rounded-lg">
                     <div class="px-6 py-5 font-semibold border-b border-gray-100">Partners:</div>
                     <div class="p-4 flex-grow">
-                        <table class="table table-bordered">
+                        {{-- <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>logo:</th>
@@ -464,7 +475,7 @@
 
                                 </tr>
                             </thead>
-                            {{-- <tbody>
+                             <tbody>
                                 @foreach ($partners as $P)
                                     <tr>
                                         <td><img src="{{ $project->getFirstMediaUrl('logo') }}"
@@ -475,8 +486,8 @@
 
                                     </tr>
                                 @endforeach
-                            </tbody> --}}
-                        </table>
+                            </tbody> 
+                        </table> --}}
                     </div>
                 </div>
             </section>

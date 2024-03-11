@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Organisator;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Event;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashController extends Controller
 {
@@ -12,9 +16,15 @@ class DashController extends Controller
      */
     public function index()
     {
-        
-       return view('organisator.dashboard');
+        $org_id = Auth::user()->organisator;
+        $my_events = Event::where("organisator_id", $org_id)->get();
+        $total_events = $my_events->count();
+        $eventIds = $my_events->pluck('id')->toArray();
+        $total_reservations = Reservation::whereIn("event_id", $eventIds)->count();
+        $my_reservations = Reservation::whereIn("event_id", $eventIds)->get();
+        return view('organisator.dashboard', compact("total_events", "total_reservations", "my_events", "my_reservations"));
     }
+    
 
     /**
      * Show the form for creating a new resource.

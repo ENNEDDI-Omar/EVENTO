@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('auth')->group(function () {
         Route::get('home', [HomeController::class, 'index'])->name("home");
+        Route::get('search', [HomeController::class, 'search'])->name('home.search');
         Route::get('show/{id}', [HomeController::class, 'show'])->name("show");
         Route::post('reservations', [ReservationController::class, 'store'])->name("reservation");
         Route::resource('organizer_form', OrganisatorController::class);
